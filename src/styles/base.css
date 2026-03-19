@@ -1,0 +1,9 @@
+@utility container {
+    @apply mx-auto;
+}
+
+
+body {
+    background-color: var(--color-secondary);
+    font-family: "Cairo", sans-serif;
+}

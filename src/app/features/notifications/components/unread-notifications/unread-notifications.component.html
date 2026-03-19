@@ -1,0 +1,7 @@
+@for (noti of unreadNotifications; track $index) {
+<app-notification-card [noti]="noti" (markAsRead)="onNotificationMarkedAsRead($event)" />
+}@empty {
+<div class="my-3 p-3 bg-gray-50">
+    <app-loading-spinner />
+</div>
+}

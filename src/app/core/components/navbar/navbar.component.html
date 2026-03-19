@@ -1,0 +1,67 @@
+<nav class="bg-neutral-primary fixed w-full z-20 top-0 start-0 border-b border-default">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="https://flowbite.com/docs/images/logo.svg" class="h-7" alt="Flowbite Logo">
+            <span class="self-center text-xl text-heading font-semibold whitespace-nowrap">Route Posts</span>
+        </a>
+        <div class="flex gap-3 md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            <button id="dropdownNvbarButton" data-dropdown-toggle="dropdownNavbar"
+                class="cursor-pointer flex items-center justify-between gap-3 w-full py-2 px-3 rounded-full border border-gray-500 bg-gray-100 font-medium text-heading md:w-auto hover:bg-neutral-tertiary md:hover:bg-transparent md:hover:text-fg-brand">
+                <img class="rounded-full w-10 h-10" src="{{userData?.photo}}" alt="{{userData?.name}}">
+                {{ userData?.name }}
+                <i class="fas fa-bars ms-1.5"></i>
+            </button>
+            <button (click)="logout()"
+                class="cursor-pointer hidden md:flex justify-center items-center w-full py-2 px-3 rounded-full border border-gray-500 bg-gray-100 font-medium text-heading md:w-auto hover:bg-red-500 md:hover:bg-transparent md:hover:text-red-500">
+                <i class="fas fa-sign-out-alt ms-1.5"></i>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="dropdownNavbar"
+                class="z-10 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44">
+                <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownNvbarButton">
+                    <li>
+                        <a routerLink="/user-profile"
+                            class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"><i
+                                class="fas fa-user"></i>Profile</a>
+                    </li>
+                    <li>
+                        <a routerLink="/user-profile/change-password"
+                            class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"><i
+                                class="fas fa-key"></i>Change password</a>
+                    </li>
+                    <li>
+                        <a routerLink="" (click)="logout()"
+                            class="inline-flex items-center w-full p-2 text-red-500 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
+                            <i class="fas fa-sign-out-alt"></i>Sign out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 py-2 px-3 rounded-full border border-gray-500 bg-gray-100"
+            id="navbar-sticky">
+            <ul
+                class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-default rounded-base bg-neutral-secondary-soft md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
+                <li>
+                    <a routerLink="/feed" routerLinkActive="text-main"
+                        class="block py-2 px-3 text-heading bg-brand rounded-sm md:bg-transparent md:p-0"
+                        aria-current="page"><i class="fas fa-home"></i>Feed</a>
+                </li>
+                <li>
+                    <a routerLink="/user-profile" routerLinkActive="text-main"
+                        class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:p-0 md:dark:hover:bg-transparent"><i
+                            class="fas fa-user"></i>Profile</a>
+                </li>
+                <li>
+                    <a routerLink="/notifications" routerLinkActive="text-main"
+                        class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:p-0 md:dark:hover:bg-transparent"><i
+                            class="fas fa-bell"></i>Notifications</a>
+                </li>
+                <li>
+                    <a routerLink="/user-profile/change-password"
+                        class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"><i
+                            class="fas fa-key"></i>Change password</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

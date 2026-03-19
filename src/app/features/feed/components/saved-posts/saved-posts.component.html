@@ -1,0 +1,9 @@
+<div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+    @for (post of responseOfAllPosts; track $index) {
+    @if (post.bookmarked) {
+    <app-post-card [post]="post" />
+    }
+    }@empty {
+    <app-loading-spinner />
+    }
+</div>

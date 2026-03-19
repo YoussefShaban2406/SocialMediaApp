@@ -1,0 +1,20 @@
+<section>
+    <h1 class="font-extrabold text-2xl">Log in to Route Posts</h1>
+    <p class="font-extrabold text-sm text-gray-600">Log in and continue your social journey.</p>
+    <div class="m-3">
+        <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+            <!-- E-mail Address  -->
+            <app-auth-input inputType="email" placeholder="E-mail address" formControlName="email" [control]="loginForm.get('email')" />
+            <!-- Password  -->
+            <app-auth-input inputType="password" placeholder="Password" formControlName="password" [control]="loginForm.get('password')" />
+            <!-- Submit Button  -->
+            <button type="submit"
+                class="w-full mt-5 py-2.5 bg-main text-white font-bold rounded-base hover:-translate-1 hover:bg-blue-950 transition-transform duration-250 cursor-pointer">
+                Log in
+            </button>
+            @if (errorMessege) {
+            <small class="text-red-500 text-xs mx-auto">{{ errorMessege }}</small>
+            }
+        </form>
+    </div>
+</section>

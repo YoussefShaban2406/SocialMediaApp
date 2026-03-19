@@ -1,0 +1,53 @@
+<section>
+    <!-- Title -->
+    <h1 class="font-extrabold text-2xl text-gray-900">
+        Create a new account
+    </h1>
+    <p class="text-sm text-gray-600 mt-1">
+        It is quick and easy.
+    </p>
+    <div class="mt-6">
+        <form [formGroup]="signUpForm" (ngSubmit)="onSignUpSubmit()" class="space-y-4">
+            <!-- Full Name -->
+            <app-auth-input [control]="signUpForm.get('name')" formControlName="name" inputType="text"
+                placeholder="Full name" icon="fa-solid fa-user" errorMessage="Full name is required." />
+            <!-- Username -->
+            <app-auth-input [control]="signUpForm.get('username')" formControlName="username" inputType="text"
+                placeholder="Username" icon="fa-solid fa-user" errorMessage="Username is required." />
+            <!-- Email -->
+            <app-auth-input [control]="signUpForm.get('email')" formControlName="email" inputType="email"
+                placeholder="Email" icon="fa-solid fa-envelope" errorMessage="Valid email is required." />
+            <!-- Gender Select -->
+            <app-auth-input [control]="signUpForm.get('gender')" formControlName="gender" inputType="gender"
+                placeholder="Gender" icon="fa-solid fa-user-group" errorMessage="Gender is required." />
+            <!-- Date of Birth -->
+            <app-auth-input [control]="signUpForm.get('dateOfBirth')" formControlName="dateOfBirth" inputType="date"
+                placeholder="Date of Birth" icon="fa-solid fa-calendar" errorMessage="Date of birth is required." />
+            <!-- Password -->
+            <app-auth-input [control]="signUpForm.get('password')" inputType="password" formControlName="password"
+                placeholder="Password" icon="fa-solid fa-key" errorMessage="Password is required." />
+            <!-- Confirm Password -->
+            <app-auth-input [control]="signUpForm.get('rePassword')" inputType="password" formControlName="rePassword"
+                placeholder="Confirm Password" icon="fa-solid fa-key" errorMessage="Confirm password is required." />
+            @if (signUpForm.getError('passwordMissMatch')) {
+            <div animate.enter="fadein" animate.out="fadeout" class="text-red-500 text-xs mt-1">
+                Passwords do not match.
+            </div>
+            }
+            <!-- Submit Button -->
+            <button type="submit" [disabled]="isLoading"
+                class="w-full mt-4 py-3 disabled:opacity-40 bg-blue-900 text-white font-bold rounded-xl hover:bg-blue-800 transition-all duration-300">
+                Create New Account
+                @if (isLoading) {
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                }
+            </button>
+            @if (successMessege) {
+            <small class="text-green-500 text-xs mx-auto">{{ successMessege }}</small>
+            }
+            @if (errorMessege) {
+            <small class="text-red-500 text-xs mx-auto">{{ errorMessege }}</small>
+            }
+        </form>
+    </div>
+</section>

@@ -1,0 +1,91 @@
+<section class="container flex flex-col h-screen gap-12 p-5 my-auto lg:flex-row-reverse lg:items-center lg:justify-between">
+    <!-- Auth Page Router Outlet -->
+    <div class="w-full p-3 bg-white rounded-2xl">
+        <!-- Hidden in lg and block in sm -->
+        <div class="block lg:hidden text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-main mb-4">
+                Route Posts
+            </h1>
+            <p class="text-2xl text-black mb-10 max-w-2xl">
+                Connect with friends and the world around you on Route Posts.
+            </p>
+        </div>
+        <!-- Buttons of Switch -->
+        <div class="bg-secondary flex items-center justify-center gap-6 rounded-2xl p-1">
+            <a routerLink="login" class="w-full text-center">
+                <div class="text-main rounded-2xl p-2.5" [routerLinkActive]="['bg-white']">Login</div>
+            </a>
+            <a routerLink="register" class="w-full text-center">
+                <div class="text-main rounded-2xl p-2.5" [routerLinkActive]="['bg-white']">Register</div>
+            </a>
+        </div>
+        <div class="m-4">
+            <router-outlet />
+        </div>
+    </div>
+    <!-- Left Content -->
+    <div class="w-full max-w-5xl mx-auto">
+        <div class="hidden lg:block">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-main mb-4">
+                Route Posts
+            </h1>
+            <p class="text-2xl text-black mb-10 max-w-2xl">
+                Connect with friends and the world around you on Route Posts.
+            </p>
+        </div>
+        <!-- Card -->
+        <div class="bg-white rounded-2xl shadow-lg border border-blue-200 p-8">
+
+            <!-- Small Title -->
+            <p class="text-sm font-semibold tracking-widest text-blue-700 uppercase mb-2">
+                About Route Academy
+            </p>
+
+            <!-- Main Heading -->
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                Egypt's Leading IT Training Center Since 2012
+            </h2>
+
+            <!-- Description -->
+            <p class="text-gray-600 leading-relaxed mb-8">
+                Route Academy is the premier IT training center in Egypt, established in 2012.
+                We specialize in delivering high-quality training courses in programming,
+                web development, and application development. We've identified the unique
+                challenges people may face when learning new technology and made efforts
+                to provide strategies to overcome them.
+            </p>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
+                    <h3 class="text-xl font-bold text-blue-700">2012</h3>
+                    <p class="text-sm text-gray-600 font-semibold uppercase mt-1">Founded</p>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
+                    <h3 class="text-xl font-bold text-blue-700">40K+</h3>
+                    <p class="text-sm text-gray-600 font-semibold uppercase mt-1">Graduates</p>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
+                    <h3 class="text-xl font-bold text-blue-700">50+</h3>
+                    <p class="text-sm text-gray-600 font-semibold uppercase mt-1">Partner Companies</p>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
+                    <h3 class="text-xl font-bold text-blue-700">5</h3>
+                    <p class="text-sm text-gray-600 font-semibold uppercase mt-1">Branches</p>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
+                    <h3 class="text-xl font-bold text-blue-700">20</h3>
+                    <p class="text-sm text-gray-600 font-semibold uppercase mt-1">Diplomas Available</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>

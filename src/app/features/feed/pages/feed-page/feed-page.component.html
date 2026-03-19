@@ -1,0 +1,21 @@
+<div class="grid grid-cols-12 gap-5 p-5 mt-24">
+    <!-- Left Sidebar -->
+    <div class="col-span-3">
+        <app-feed-side-bar />
+    </div>
+    <!-- Posts Section -->
+    <div class="col-span-6">
+        <div>
+            <app-add-posts (postAdded)="onNewPostAdded($event)" />
+        </div>
+        <div class="my-3">
+            <router-outlet (activate)="onActivate($event)" />
+        </div>
+    </div>
+    <!-- Suggested Friends -->
+    <div class="col-span-3">
+        <div class="mx-auto">
+            <app-feed-suggested-friends />
+        </div>
+    </div>
+</div>

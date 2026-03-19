@@ -1,0 +1,49 @@
+@if (inputType === 'gender') {
+<div class="relative mb-2">
+    <div class="absolute inset-y-0 start-0 flex items-center ps-3 text-gray-500">
+        <i class="fa-solid fa-user-group"></i>
+    </div>
+    <select [value]="value" (blur)="onBlur()" (input)="onChange($any($event.target).value)"
+        class="w-full ps-10 pe-3 py-3 bg-white border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-100 focus:border-blue-100 outline-none appearance-none"
+        [class.border-green-500]="!control?.invalid" [class.border-red-500]="control?.invalid && control?.touched">
+        <option selected disabled value="">Select gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
+</div>
+@if (control?.invalid && control?.touched) {
+<div animate.enter="fadein" animate.out="fadeout" class="text-red-500 text-xs mt-1">
+    {{ errorMessage }}
+</div>
+}
+}@else {
+<div class="relative mb-2">
+    <div class="absolute inset-y-0 start-0 flex items-center ps-3 text-gray-500">
+        <i class="fa-solid fa-user"></i>
+    </div>
+    <input #inputID [type]="inputType" [value]="value" (blur)="onBlur()" (input)="onChange($event.target.value)"
+        class="w-full ps-10 pe-3 py-3 bg-white border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-100 focus:border-blue-100 outline-none"
+        placeholder="{{placeholder}}" [class.border-green-500]="!control?.invalid"
+        [class.border-red-500]="control?.invalid && control?.touched"
+        [class.border-red-500]="inputType === 'date'? (dateValidator(control) && control?.touched) : (control?.invalid && control?.touched)"
+        [class.border-green-500]="inputType === 'date'? !(dateValidator(control) && control?.touched): !control?.invalid">
+    @if (inputType === 'password') {
+    <div class="absolute top-1/2 right-0 -translate-1/2"
+        (click)="inputID.type = inputID.type === 'password' ? 'text' : 'password'">
+        <i [class]="inputID.type === 'password' ? 'fa-eye-slash' : 'fa-eye'"
+            class="fa-solid text-gray-500 cursor-pointer"></i></div>
+    }
+</div>
+@if (control?.invalid && control?.touched) {
+<div animate.enter="fadein" animate.out="fadeout" class="text-red-500 text-xs mt-1">
+    {{ errorMessage }}
+</div>
+}
+@if (inputType === 'date') {
+@if (dateValidator(control) && control?.touched) {
+<div animate.enter="fadein" animate.out="fadeout" class="text-red-500 text-xs mt-1">
+    You must be at least 18 years old.
+</div>
+}
+}
+}

@@ -1,0 +1,333 @@
+<div class="bg-white rounded-2xl shadow border border-gray-200 p-5 w-full my-3">
+    <!-- Header -->
+    <div class="flex items-start justify-between">
+        <div class="flex gap-3">
+            <!-- Avatar -->
+            <img [src]="post.user.photo" class="w-12 h-12 rounded-full" alt="user">
+            <!-- User Info -->
+            <div>
+                <h3 class="font-semibold text-gray-800">
+                    {{post.user.name}}
+                </h3>
+                <div class="flex items-center gap-2 text-sm text-gray-500">
+                    <span>@{{post.user.username}}</span>
+                    <span>·</span>
+                    <span>{{+timeNow.slice(11, 13) - +post.createdAt.slice(11, 13)}}h</span>
+                    <span>·</span>
+                    <span class="flex items-center gap-1">
+                        <i class="fa-solid fa-earth-americas text-xs"></i>
+                        {{post.privacy}}
+                        <i class="fa-solid fa-chevron-down text-xs"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Post Actions -->
+        <div class="flex items-center gap-2">
+            <!-- Save -->
+            <button (click)="onBookMarkPost(post._id)" [class.text-blue-500]="post.bookmarked"
+                class="p-2 rounded-lg hover:bg-gray-100 hover:text-blue-600 transition" title="Save Post">
+                <i class="fas fa-book-bookmark"></i>
+            </button>
+            <!-- Edit -->
+            <button (click)="onEditPost()"
+                class="p-2 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-green-600 transition"
+                title="Edit Post">
+                <i class="fas fa-pen-nib"></i>
+            </button>
+            <!-- Delete -->
+            <button (click)="onDeletePost(post._id, post.user._id)"
+                class="p-2 rounded-lg hover:bg-red-100 text-gray-600 hover:text-red-600 transition" title="Delete Post">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    </div>
+    <!-- Post Content -->
+    @if (isOnEditingPost && post.user._id === userData._id) {
+    <form [formGroup]="updatePostForm" (ngSubmit)="onUpdatePost(post._id)">
+        <div class="w-full max-w-3xl border border-gray-200 rounded-xl p-3 mt-3">
+            <!-- Textarea -->
+            <textarea formControlName="body"
+                class="w-full resize-y bg-transparent border border-gray-300 rounded-3xl outline-none text-gray-700 placeholder-gray-500"
+                rows="4" placeholder="updated profile picture."></textarea>
+            <!-- Actions -->
+            <div class="flex justify-end gap-3 mt-3">
+                <button type="button" (click)="isOnEditingPost = false"
+                    class="px-4 py-1.5 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100 transition">
+                    Cancel
+                </button>
+                <button type="submit"
+                    class="px-4 py-1.5 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition">
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
+    }@else {
+    <div class="mt-4 text-gray-800 wrap-break-word overflow-hidden">
+        {{post.body}}
+    </div>
+    }
+    @if (post.image) {
+    <div class="mt-4">
+        <img [src]="post.image" alt="Post Image" class="w-full rounded-lg object-cover max-h-96">
+    </div>
+    }
+    <!-- Stats -->
+    <div class="flex justify-between items-center text-sm text-gray-500 mt-4">
+        <div class="flex items-center gap-2">
+            <i class="fa-regular fa-thumbs-up text-blue-500"></i>
+            <span class="text-gray-700">{{post.likes.length}} Likes</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="flex items-center gap-1">
+                <i class="fa-solid fa-retweet text-xs"></i>
+                {{post.sharesCount}} Shares
+            </span>
+            <span>{{post.commentsCount}} Comments</span>
+            <button (click)="onGettingSinglePost(post._id)" (click)="openPostModal(selectedPost)"
+                class="text-blue-500 px-2 rounded-2xl cursor-pointer hover:bg-blue-200 hover:text-black ">
+                View details
+            </button>
+        </div>
+    </div>
+    <!-- Divider -->
+    <div class="border-t my-4"></div>
+    <!-- Actions -->
+    <div class="grid grid-cols-3 text-gray-600 text-sm">
+        <!-- Like -->
+        <button (click)="onLikePost(post._id)" class="flex items-center justify-center gap-2 py-2 hover:bg-gray-100 rounded-lg transition">
+            <i class="fa-regular fa-thumbs-up"></i>
+            Like
+        </button>
+        <!-- Comments -->
+        <button type="button" (click)="getPostComments(post._id)"
+            class="flex items-center justify-center gap-2 py-2 hover:bg-gray-100 rounded-lg transition">
+            <i class="fa-regular fa-comment"></i>
+            Comment
+        </button>
+        <!-- Share -->
+        <button (click)="onSharePost(post._id)" class="flex items-center justify-center gap-2 py-2 hover:bg-gray-100 rounded-lg transition">
+            <i class="fa-solid fa-share-nodes"></i>
+            Share
+        </button>
+    </div>
+    <!-- Top Comment -->
+    @if (post.topComment && isShowTopComment) {
+    <div class="p-3 bg-secondary rounded-3xl flex flex-col gap-3 overflow-clip">
+        <div class="flex gap-3">
+            <div class="rounded-full align-middle">
+                <img [src]="post.topComment.commentCreator.photo" class="w-6 h-6" alt="top comment avatar photo">
+            </div>
+            <small>{{post.topComment.commentCreator.name}}</small>
+        </div>
+        <div>
+            <small>{{post.topComment.content}}</small>
+        </div>
+    </div>
+    }
+
+    <!-- All Comments -->
+    @if(!isShowTopComment) {
+    @for (comment of allComments; track $index) {
+    <app-all-comments [comment]="comment" />
+    }@empty {
+    <!-- Empty State -->
+    <div class="bg-gray-50 border border-gray-300 rounded-xl p-10 text-center mb-4">
+        <div class="flex justify-center mb-3">
+            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-100 text-blue-500">
+                <i class="fa-regular fa-comment text-xl"></i>
+            </div>
+        </div>
+
+        <h3 class="font-semibold text-gray-700 text-lg">
+            No comments yet
+        </h3>
+
+        <p class="text-gray-500 text-sm">
+            Be the first to comment.
+        </p>
+    </div>
+    }
+    <!-- Comment Input -->
+    <app-add-comment (commentAdded)="allComments.unshift($event)" [postID]="post._id" />
+    }
+</div>
+
+
+@if (isModalOpen) {
+@if (selectedPost) {
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 overflow-y-auto">
+
+    <div class="bg-white rounded-2xl shadow border border-gray-200 p-5 w-full max-w-3xl">
+
+        <!-- Header -->
+        <div class="flex items-start justify-between">
+            <div class="flex gap-3">
+
+                <!-- Avatar -->
+                <img [src]="selectedPost.user.photo" class="w-12 h-12 rounded-full" alt="user">
+
+                <!-- User Info -->
+                <div>
+                    <h3 class="font-semibold text-gray-800">
+                        {{selectedPost.user.name}}
+                    </h3>
+
+                    <div class="flex items-center gap-2 text-sm text-gray-500">
+
+                        <span>@{{selectedPost.user.username}}</span>
+
+                        <span>·</span>
+
+                        <span>
+                            {{+timeNow.slice(11, 13) - +selectedPost.createdAt.slice(11, 13)}}h
+                        </span>
+
+                        <span>·</span>
+
+                        <span class="flex items-center gap-1">
+                            <i class="fa-solid fa-earth-americas text-xs"></i>
+                            {{selectedPost.privacy}}
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Close Button -->
+            <button (click)="closeModal()" class="text-gray-500 hover:text-red-500 text-xl">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <!-- Post Content -->
+        <div class="mt-4 text-gray-800">
+            {{selectedPost.body}}
+        </div>
+
+        <!-- Image -->
+        @if (selectedPost.image) {
+        <div class="mt-4">
+            <img [src]="selectedPost.image" class="w-full rounded-lg object-cover max-h-[500px]">
+        </div>
+        }
+
+        <!-- Stats -->
+        <div class="flex justify-between items-center text-sm text-gray-500 mt-4">
+
+            <div class="flex items-center gap-2">
+                <i class="fa-regular fa-thumbs-up text-blue-500"></i>
+                <span class="text-gray-700">
+                    {{selectedPost.likes.length}} Likes
+                </span>
+            </div>
+
+            <div class="flex items-center gap-4">
+
+                <span class="flex items-center gap-1">
+                    <i class="fa-solid fa-retweet text-xs"></i>
+                    {{selectedPost.sharesCount}} Shares
+                </span>
+
+                <span>
+                    {{selectedPost.commentsCount}} Comments
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t my-4"></div>
+
+        <!-- Actions -->
+        <div class="grid grid-cols-3 text-gray-600 text-sm">
+
+            <button class="flex items-center justify-center gap-2 py-2 hover:bg-gray-100 rounded-lg transition">
+                <i class="fa-regular fa-thumbs-up"></i>
+                Like
+            </button>
+
+            <button class="flex items-center justify-center gap-2 py-2 hover:bg-gray-100 rounded-lg transition">
+
+                <i class="fa-regular fa-comment"></i>
+                Comment
+            </button>
+
+            <button class="flex items-center justify-center gap-2 py-2 hover:bg-gray-100 rounded-lg transition">
+                <i class="fa-solid fa-share-nodes"></i>
+                Share
+            </button>
+
+        </div>
+
+        <!-- Top Comment -->
+        @if (selectedPost.topComment && isShowTopComment) {
+
+        <div class="p-3 bg-secondary rounded-3xl flex flex-col gap-3 mt-4">
+
+            <div class="flex gap-3">
+
+                <img [src]="selectedPost.topComment.commentCreator.photo" class="w-6 h-6 rounded-full">
+
+                <small>
+                    {{selectedPost.topComment.commentCreator.name}}
+                </small>
+
+            </div>
+
+            <div>
+                <small>
+                    {{selectedPost.topComment.content}}
+                </small>
+            </div>
+
+        </div>
+
+        }
+
+        <!-- All Comments -->
+        @if(!isShowTopComment) {
+
+        @for (comment of allComments; track $index) {
+
+        <app-all-comments [comment]="comment"></app-all-comments>
+
+        } @empty {
+
+        <!-- Empty State -->
+        <div class="bg-gray-50 border border-gray-300 rounded-xl p-10 text-center mb-4">
+
+            <div class="flex justify-center mb-3">
+                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-100 text-blue-500">
+                    <i class="fa-regular fa-comment text-xl"></i>
+                </div>
+            </div>
+
+            <h3 class="font-semibold text-gray-700 text-lg">
+                No comments yet
+            </h3>
+
+            <p class="text-gray-500 text-sm">
+                Be the first to comment.
+            </p>
+
+        </div>
+
+        }
+
+        <!-- Comment Input -->
+        <app-add-comment (commentAdded)="allComments.unshift($event)" [postID]="selectedPost._id">
+        </app-add-comment>
+
+        }
+
+    </div>
+
+</div>
+}
+}

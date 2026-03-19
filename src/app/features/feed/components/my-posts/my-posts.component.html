@@ -1,0 +1,7 @@
+<div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+  @for (post of responseOfMyPosts; track post._id) {
+    <app-post-card [post]="post" (postUpdated)="onPostUpdated($event)" (postDeleted)="onPostDeleted($event)" />
+  }@empty {
+    <app-loading-spinner />
+  }
+</div>

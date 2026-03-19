@@ -1,0 +1,60 @@
+<form [formGroup]="addPostForm" (ngSubmit)="onAddPost()"
+    class="bg-white rounded-2xl shadow p-5 w-full border border-gray-200">
+    <!-- Header -->
+    <div class="flex items-center gap-3 mb-4">
+        <!-- Avatar -->
+        <img [src]="userData.photo" class="w-12 h-12 rounded-full" alt="user">
+        <!-- Name + Privacy -->
+        <div class="flex flex-col">
+            <span class="font-semibold text-gray-800">
+                {{userData.name}}
+            </span>
+            <button type="button"
+                class="flex items-center gap-2 text-sm bg-gray-100 px-3 py-1 rounded-full w-fit text-gray-600 hover:bg-gray-200">
+                <i class="fa-solid fa-earth-americas text-xs"></i>
+                Public
+                <i class="fa-solid fa-chevron-down text-xs"></i>
+            </button>
+        </div>
+    </div>
+    <!-- Textarea -->
+    <div>
+        <textarea formControlName="body" rows="4" placeholder="What's on your mind, {{userData.name[0]}}?"
+            class="placeholder-gray-600 w-full resize-none border border-gray-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-blue-200">
+    </textarea>
+        @if (imagePreview) {
+        <div class="flex justify-center my-4 relative">
+            <img [src]="imagePreview" class="w-100 max-h-60" alt="image to share">
+            <button class="absolute top-0 right-0 cursor-pointer" type="button" (click)="imagePreview = ''">
+                <i class="fas fa-times text-gray-400"></i>
+            </button>
+        </div>
+        }
+    </div>
+    <!-- Divider -->
+    <div class="border-t my-4"></div>
+    <!-- Footer -->
+    <div class="flex items-center justify-between">
+        <!-- Inputs -->
+        <div class="flex items-center gap-6">
+            <!-- Photo Upload -->
+            <label class="flex items-center gap-2 text-gray-600 cursor-pointer hover:text-green-600">
+                <i class="fa-regular fa-image text-green-600"></i>
+                <span class="text-sm">Photo/video</span>
+                <input (change)="onImageSelect($event)" type="file" accept="image/*" class="hidden">
+            </label>
+        </div>
+        <!-- Post Button -->
+        <button [disabled]="isLoading || (!addPostForm.get('body')?.value?.length && !imagePreview)"
+            type="submit"
+            class="flex items-center gap-2 disabled:bg-blue-500/50 bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-xl transition">
+            @if (isLoading) {
+            Posting
+            <i class="fa-solid fa-spinner fa-spin text-sm"></i>
+            }@else {
+            Post
+            <i class="fa-solid fa-paper-plane text-sm"></i>
+            }
+        </button>
+    </div>
+</form>

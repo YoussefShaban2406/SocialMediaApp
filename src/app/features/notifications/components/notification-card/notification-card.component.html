@@ -1,0 +1,55 @@
+<div class="p-4">
+    <div [ngClass]="{
+        'bg-blue-50': !noti.isRead,
+        'bg-white': noti.isRead}" class="border border-blue-100 rounded-xl p-4 flex justify-between items-start">
+        <!-- Left -->
+        <div class="flex gap-3">
+            <!-- Avatar -->
+            <img [src]="noti.actor.photo" class="w-12 h-12 rounded-full object-cover" />
+            <!-- Content -->
+            <div>
+                <p class="text-gray-800">
+                    <span class="font-semibold">{{noti.actor.name}}</span>
+                    {{noti.type.split('_').join(' ')}}
+                </p>
+                <p class="text-sm text-gray-500 mt-1">
+                    {{noti.entity.body}}
+                </p>
+                <!-- Actions -->
+                <div class="flex items-center gap-3 mt-3">
+                    <button
+                        class="w-8 h-8 flex items-center justify-center rounded-full bg-white border hover:bg-gray-100">
+                        @switch (noti.type.split('_')[0]) {
+                        @case ('like') {
+                        <i class="fa-solid fa-{{icon.like}} text-red-500"></i>
+                        }
+                        @case ('follow') {
+                        <i class="fa-solid fa-{{icon.follow}} text-purple-500"></i>
+                        }
+                        @case ('share') {
+                        <i class="fa-solid fa-{{icon.share}} text-green-500"></i>
+                        }
+                        @case ('comment') {
+                        <i class="fa-solid fa-{{icon.comment}} text-blue-500"></i>
+                        }
+                        }
+                    </button>
+                    @if (noti.isRead) {
+                    <div class="text-green-500"><i class="fas fa-check"></i> Read</div>
+                    }@else {
+                    <button (click)="onMarkAsRead()"
+                        class="flex items-center gap-2 px-3 py-1 rounded-lg bg-white border text-blue-600 hover:bg-blue-50 text-sm">
+                        <i class="fa-solid fa-check"></i>
+                        Mark as read
+                    </button>
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- Right -->
+        <div class="flex items-center gap-2 text-sm text-gray-400">
+            <span>{{noti.createdAt | date: 'shortTime'}}</span>
+            <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+        </div>
+    </div>
+</div>

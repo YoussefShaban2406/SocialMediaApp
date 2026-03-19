@@ -1,0 +1,19 @@
+<div class="w-full max-w-3xl mx-auto my-4">
+    <!-- Comments -->
+    @if (comment) {
+    <div class="p-3 bg-secondary rounded-3xl flex flex-col gap-3">
+        <div class="flex gap-3">
+            <div class="rounded-full align-middle">
+                <img [src]="comment.commentCreator.photo" class="w-6 h-6" alt="top comment avatar photo">
+            </div>
+            <small>{{comment.commentCreator.name}}</small>
+        </div>
+        <div>
+            <small>{{comment.content}}</small>
+        </div>
+        @if (comment.image) {
+            <img [src]="comment.image" class="min-h-10" alt="image of comment">
+        }
+    </div>
+    }
+</div>

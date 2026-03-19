@@ -1,59 +1,211 @@
-# SocialMediaApp
+# 📱 Social Media App (Angular)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.14.
+A modern **Social Media Web Application** built with **Angular 20**, designed to simulate real-world social platforms like Facebook or LinkedIn.
+This project focuses on **clean architecture, reactive programming, and smooth user experience**.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Features
+
+### 🔐 Authentication
+
+* User Registration & Login
+* Change Password functionality
+* Form validation (Reactive Forms)
+* Error handling & feedback
+* LocalStorage session management
+
+---
+
+### 📰 Posts System
+
+* Create posts (text + image)
+* Edit posts (real-time UI update)
+* Delete posts
+* View post details in modal
+* Bookmark posts
+
+---
+
+### 💬 Comments
+
+* Add comments
+* View all comments
+* Highlight **Top Comment**
+* Dynamic comment updates
+
+---
+
+### ❤️ Interactions
+
+* Like / Unlike posts
+* Share posts
+* Bookmark system with UI toggle
+
+---
+
+### 🔔 Notifications
+
+* Notifications UI
+* Mark as read
+* Filter (All / Unread)
+
+---
+
+### 🌐 Multi-language Support
+
+* Translation system using pipes
+* Easily extendable for more languages
+
+---
+
+### 🎨 UI/UX
+
+* Built with **Tailwind CSS**
+* Icons using **Font Awesome**
+* Fully responsive design
+* Modern card-based layout
+* Modal-based post preview
+* Smooth transitions and hover states
+
+---
+
+## 🧠 Technical Highlights
+
+* ⚡ Angular 20 (Standalone Components)
+* 🔁 Reactive Forms + Custom Validators
+* 📡 REST API Integration
+* 🧩 Component-based architecture
+* 🔄 Optimistic UI Updates (instant UI changes)
+* 📦 Scalable folder structure
+* ❌ No Signals (pure RxJS approach)
+
+---
+
+## 🏗️ Project Structure
+
+```
+src/
+│
+├── core/
+│   ├── constants/
+│   ├── services/
+│
+├── features/
+│   ├── auth/
+│   ├── posts/
+│   ├── notifications/
+│
+├── shared/
+│   ├── components/
+│   ├── models/
+│
+└── assets/
+```
+
+---
+
+## 🔧 Installation & Setup
 
 ```bash
+# Clone repository
+git clone https://github.com/your-username/social-media-app.git
+
+# Navigate to project
+cd social-media-app
+
+# Install dependencies
+npm install
+
+# Run the app
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Then open:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
+## ⚙️ Environment Configuration
+
+Update API endpoints inside:
+
+```
+src/app/core/constants/app-apis.ts
 ```
 
-## Building
+Example:
 
-To build the project run:
-
-```bash
-ng build
+```ts
+export const App_Apis = {
+  auth: {
+    register: '/auth/register',
+    login: '/auth/login'
+  },
+  posts: {
+    getAll: '/posts',
+    create: '/posts',
+    update: '/posts/:id'
+  }
+};
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 🧪 Validation Features
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+* Required fields validation
+* Email format validation
+* Strong password regex:
 
-```bash
-ng test
-```
+  * At least 1 uppercase letter
+  * At least 1 number
+  * At least 1 special character
+* Confirm password matching
+* Dynamic error messages
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 🔥 Advanced Features
 
-```bash
-ng e2e
-```
+* Modal system for post details
+* Dynamic class binding (Tailwind + Angular)
+* Optimistic updates (no reload needed)
+* Reusable components (inputs, comments, posts)
+* Clean separation of concerns
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## 📌 Future Improvements
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+* 🔄 Real-time updates with WebSockets
+* 🖼️ Multiple images per post
+* 🧵 Nested comments (replies)
+* 🔍 Search & filtering
+* 🧠 Global state management (NgRx)
+
+---
+
+## 👨‍💻 Author
+
+**Youssef Shaban**
+
+---
+
+## ⭐ Notes
+
+This project was built as a **practice + portfolio project** to demonstrate:
+
+* Advanced Angular skills
+* Clean UI implementation
+* Real-world app structure
+* Scalable frontend architecture
+
+---
+
+## 📄 License
+
+This project is open-source and available for learning and personal use.

@@ -1,0 +1,10 @@
+<div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-4 w-full max-w-sm">
+    <span class="text-shadow-2xs text-main bg-transparent">Suggested Followers</span>
+    @for (SF of allSuggestedFollowers; track $index) {
+    <app-feed-suggested-card [suggestedFollower]="SF" (refreshView)="getSuggestedFollowers()"/>
+    }@empty {
+    <div class="col-span-full text-center py-10 text-gray-500">
+        No suggestions found.
+    </div>
+    }
+</div>
