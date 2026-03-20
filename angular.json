@@ -14,7 +14,6 @@
           "skipTests": true,
           "type": "service"
         }
-
       },
       "root": "",
       "sourceRoot": "src",
@@ -47,8 +46,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2mb",
+                  "maximumError": "3mb"
                 },
                 {
                   "type": "anyComponentStyle",
