@@ -28,9 +28,9 @@ export class RegisterFormComponent implements OnInit {
   ngOnInit() {
     this.signUpForm.patchValue(
       {
-        "name": "Youssef Shaban",
-        "username": "YoussefShaban2406",
-        "email": "Youssef.shaban2406@gmail.com",
+        "name": "Ahmed Hamada",
+        "username": "AhmedHamada1234",
+        "email": "AhmedHamada1234@gmail.com",
         "dateOfBirth": "2000-06-24",
         "gender": "male",
         "password": "Aa@123456",
